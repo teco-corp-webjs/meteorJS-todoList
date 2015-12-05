@@ -1,0 +1,37 @@
+<head>
+  <title>Todo List</title>
+</head>
+ 
+<body>
+  <div class="container">
+    <header>
+      <h1>Lista de cosas a hacer ({{cantidadTareasIncompletas}})</h1>
+ 
+      <label class="hide-completed">
+        <input type="checkbox" checked="{{getOcultarTareasCompletas}}" {{b "change: setOcultarTareasCompletas"}} />
+        Ocultar tareas completas
+      </label>
+ 
+      <form {{b "submit: nuevaTarea"}} class="new-task">
+        <input type="text" placeholder="Escriba la descripción de la nueva tarea" 
+        	{{b "value: tituloNuevaTarea"}} />
+      </form>
+    </header>
+ 
+    <ul>
+      {{#each getTareas}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+ 
+<template name="task">
+  <li class="{{#if tarea.completa}}checked{{/if}}">
+    <button class="delete" {{b "click: eliminarTarea(tarea._id)"}} >&times;</button>
+ 
+    <input type="checkbox" checked="{{tarea.completa}}" class="toggle-checked" {{b "change: chequearTarea(tarea)"}} />
+ 
+    <span class="text">{{tarea.titulo}}</span>
+  </li>
+</template>
